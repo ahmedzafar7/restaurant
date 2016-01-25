@@ -1,0 +1,33 @@
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @order.name %>
+</p>
+
+<p>
+  <strong>Table:</strong>
+  <%= @order.table %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @order.notes %>
+</p>
+
+
+  <strong>This order contains:</strong>
+  <% @order.line_items.each do |line_item|%>
+ <ul>
+	<li><%= line_item.quantity %>&times;
+	<%= line_item.food.title %> for 
+	<strong><%= number_to_currency(line_item.total_price) %></strong></li>
+</ul>
+<br/>
+  <% end %>
+
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>

@@ -1,0 +1,32 @@
+
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>Listing Foods</h1>
+
+<table> 
+    <% @foods.each do |food| %>
+      <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+        <td>
+          <%= image_tag(food.image_url, class: 'list_image') %>
+        </td>
+        <td class="list_description">
+        <dl>
+        <dt><%= food.title %></dt>
+        <strong><dt>in <%= link_to food.category.name, food.category %></dt></strong>
+        <dd><%= truncate(strip_tags(food.description), length: 80) %></dd>
+         <dt><%= food.price %></dt>
+        </td>      
+       <td class="list_actions">
+        <%= link_to 'Show', food %><br/>
+        <%= link_to 'Edit', edit_food_path(food) %><br/>
+        <%= link_to 'Destroy', food, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+</table>
+
+<br/>
+
+<%= link_to 'New Food', new_food_path %>
