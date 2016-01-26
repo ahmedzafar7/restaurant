@@ -66,18 +66,19 @@ class CartsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart
-      @cart = Cart.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cart
+    @cart = Cart.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def cart_params
-      params[:cart]
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def cart_params
+    params[:cart]
+  end
 
-    def invalid_cart
-      logger.error "Attempt to access invalid cart #{params[:id]}"
-      redirect_to :root, notice: 'Invalid Cart'
-    end
+  def invalid_cart
+    logger.error "Attempt to access invalid cart #{params[:id]}"
+    redirect_to :root, notice: 'Invalid Cart'
+  end
+  
 end

@@ -12,9 +12,10 @@ class User < ActiveRecord::Base
 
   
   private
-  	def ensure_one_waiter_remains
-  		if User.count.zero?
-  			raise "Cannot delete the only waiter account remaining"
-  		end
-  	end
+	def ensure_one_waiter_remains
+		if User.count.zero?
+			raise "Cannot delete the only waiter account remaining"
+		end
+	end
+    
 end

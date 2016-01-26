@@ -8,11 +8,11 @@ gem 'sqlite3'
 #dunno what this is for
 gem 'sprockets-rails', '2.3.3'
 #rolify for roles
-gem 'rolify'
+gem 'rolify', '5.0.0'
 #devise
-gem 'devise'
+gem 'devise', '3.5.5'
 #cancancan for user roles
-gem 'cancancan'
+gem 'cancancan', '1.13.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

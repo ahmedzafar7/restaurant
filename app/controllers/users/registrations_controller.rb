@@ -3,7 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   before_filter :configure_permitted_parameters
 
-  
+  #POST
   def create
     #byebug #debugging
     super
@@ -23,4 +23,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :email, :password, :password_confirmation, :current_password)
     end
   end
+  
 end
