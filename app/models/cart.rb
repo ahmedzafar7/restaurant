@@ -1,5 +1,7 @@
 class Cart < ActiveRecord::Base
+	 resourcify
 	has_many :line_items, dependent: :destroy
+
 
 	def add_food(food_id)
 		current_item = line_items.find_by(food_id: food_id)

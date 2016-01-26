@@ -13,24 +13,25 @@
 
 <table> 
     <% @category.foods.each do |food| %>
-      <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
-        <td>
-          <%= image_tag(food.image_url, class: 'list_image') %>
-        </td>
-        <td class="list_description">
-        <dl>
-        <dt><%= food.title %></dt>
-        <strong><dt>in <%= link_to food.category.name, food.category %></dt></strong>
-        <dd><%= truncate(strip_tags(food.description), length: 80) %></dd>
-         <dt><%= food.price %></dt>
-        </td>      
-       
-      </tr>
+      <% cache ['entry', food] do %>
+      <div class="entry">
+        <%= image_tag(food.image_url) %>
+        <h3><%= food.title %></h3>
+        <p><%= sanitize(food.description) %></p>
+        <div class="price_line">
+          <span class="price"><%= number_to_currency(food.price) %></span>
+          <%= button_to 'Add to Order', line_items_path(food_id: food), remote: true %>
+        </div>
+      </div>
+      
+    <% end %>
     <% end %>
 </table>
 <% else %>
 <h2>No foods to show</h2>
 <% end %>
 <br/>
+<% if can? :manage, @category %>
 <%= link_to 'Edit', edit_category_path(@category) %> |
+<% end %>
 <%= link_to 'Back', categories_path %>

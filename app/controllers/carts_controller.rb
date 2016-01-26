@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  include CurrentCart
+  load_and_authorize_resource
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
@@ -58,7 +60,7 @@ class CartsController < ApplicationController
     @cart.destroy if @cart.id == session[:cart_id]
     session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to menu_url }
+      format.html { redirect_to :root }
       format.json { head :no_content }
     end
   end
@@ -76,6 +78,6 @@ class CartsController < ApplicationController
 
     def invalid_cart
       logger.error "Attempt to access invalid cart #{params[:id]}"
-      redirect_to menu_url, notice: 'Invalid Cart'
+      redirect_to :root, notice: 'Invalid Cart'
     end
 end

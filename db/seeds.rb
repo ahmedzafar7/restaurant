@@ -6,7 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Food.create!(title: 'Crusted Fish with Chillies',
-	description: %{<p>Pan seared fish topped with bread crumbs, glazed in chilli sauce, served
-		with sauteed vegetables, gratin potatoes and french fries</p>}, image_url: 'crusted_fish.jpg',
-		price: 8.45)
+
+
+Role.create!(name: "waiter")

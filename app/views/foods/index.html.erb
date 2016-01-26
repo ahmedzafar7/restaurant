@@ -20,13 +20,16 @@
         </td>      
        <td class="list_actions">
         <%= link_to 'Show', food %><br/>
+        <% if can? :manage, food %>
         <%= link_to 'Edit', edit_food_path(food) %><br/>
         <%= link_to 'Destroy', food, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
         </td>
       </tr>
     <% end %>
 </table>
 
 <br/>
-
+<% if can? :manage, @food %>
 <%= link_to 'New Food', new_food_path %>
+<% end %>

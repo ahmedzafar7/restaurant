@@ -1,4 +1,5 @@
 class Food < ActiveRecord::Base
+	 resourcify
 	has_many :line_items
 	has_many :orders, through: :line_items
 	belongs_to :category

@@ -1,8 +1,16 @@
 class User < ActiveRecord::Base
+  rolify
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
 	after_destroy :ensure_one_waiter_remains
-	validates :name, presence: true
-  has_secure_password
+	validates :firstname, presence: true
+  validates :email, presence: true
+  validates :lastname, presence: true
+  has_many :orders, dependent: :destroy
 
+  
   private
   	def ensure_one_waiter_remains
   		if User.count.zero?

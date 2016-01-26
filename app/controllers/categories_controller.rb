@@ -1,4 +1,7 @@
-class CategoriesController < ApplicationController
+  class CategoriesController < ApplicationController
+  include CurrentCart
+ 
+  before_action :set_cart
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories

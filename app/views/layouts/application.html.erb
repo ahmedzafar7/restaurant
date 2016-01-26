@@ -6,16 +6,29 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+<!-- taken from http://guides.railsgirls.com/devise/ -->
 <body class='<%= controller.controller_name %>'>
+<p class="navbar-text pull-right">
+<% if user_signed_in? %>
+  Logged in as <strong><%= current_user.email %></strong>.
+  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+<% else %>
+  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+<% end %>
+<!---------------------->
 	<div id="banner">
 		<%= image_tag("logo.png") %>
 		<%= @page_title || "Happy Days Menu" %>
 	</div>
 	<div id="columns">
 		<div id="side">
-		<% if @current_user %>
-			<h2>Welcome, <%= @current_user.name %></h2>
-			<h3>You have <%= link_to pluralize(@total_orders, "order"), orders_path %> waiting for you</h3>
+		<% if current_user %>
+			<h2>Welcome, <%= current_user.firstname %></h2>
+			<%= raw "<h3>You are signed up as an admin</h3>"  if current_user.has_role?(:admin) %>
+			 <%= raw "<h3>You are signed up as a waiter</h3>" if current_user.has_role?(:waiter) %> 
+
 		<% end %>
 
 		<% if @cart %>
@@ -27,13 +40,13 @@
 				<li><a href="http://localhost:3000">Home</a></li>
 				
 			</ul>
-			<% if session[:user_id] %>
+			<% if user_signed_in? %>
 				<ul>
 					<li><%= link_to 'Orders', orders_path %></li>
-					<li><%= link_to 'Food Items', foods_path %></li>
-					<li><%= link_to 'Waiters', users_path %></li>
+					<li><%= link_to 'All Food Items', foods_path %></li>
+					<li><%= link_to 'User Accounts', users_path %></li>
 				</ul>
-				<%= button_to 'Logout', logout_path, method: :delete %>
+				
 			<% end %>
 		</div>
 	</div>

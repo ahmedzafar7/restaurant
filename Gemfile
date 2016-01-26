@@ -7,6 +7,12 @@ gem 'rails', '4.2.5'
 gem 'sqlite3'
 #dunno what this is for
 gem 'sprockets-rails', '2.3.3'
+#rolify for roles
+gem 'rolify'
+#devise
+gem 'devise'
+#cancancan for user roles
+gem 'cancancan'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

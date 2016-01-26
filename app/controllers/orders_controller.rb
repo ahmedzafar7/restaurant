@@ -1,12 +1,15 @@
 class OrdersController < ApplicationController
   include CurrentCart
+  load_and_authorize_resource
+
   before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.all if current_user.has_role? :admin
+    @orders = current_user.orders if current_user.has_role? :waiter
   end
 
   # GET /orders/1
@@ -17,7 +20,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     if @cart.line_items.empty?
-      redirect_to menu_url, notice: "Customer has placed no orders"
+      redirect_to :root, notice: "You cannot create an order if there are no items in cart"
       return
     end
 
@@ -32,14 +35,14 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+    @order = current_user.orders.build(order_params)
     @order.add_line_items_from_cart(@cart)
 
     respond_to do |format|
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        format.html { redirect_to menu_url, notice: 'Order was successfully created.' }
+        format.html { redirect_to :root, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
