@@ -1,27 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations"}
-  resources :categories
-  get 'admin' => 'admin#index'
-  controller :sessions do
-    get 'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
-  end
-
-  get 'sessions/new'
-
-  get 'sessions/create'
-
-  get 'sessions/destroy'
-
+  resources :categories  
   resources :users
   resources :orders
   resources :line_items
   resources :carts
-  get 'menu/index'
-
   resources :foods
-
+  
   root 'categories#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -2,14 +2,15 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    
+   
     #taken from https://github.com/RolifyCommunity/rolify/wiki/Devise---CanCanCan---rolify-Tutorial
     if user.has_role? :admin
         can :manage, :all
     else
-        can :read, :all
-       can :manage, Order if user.has_role?(:waiter, Order)
-      #can [:read, :update, :destroy], :orders, :user_id => user.id
+        #implement waiter authorization to orders
+       # can :read, :all
+     #  can :manage, Order if user.has_role?(:waiter, Order)
+        can :manage, Order, :user_id => user.id
         can :manage, LineItem if user.has_role?(:waiter, LineItem)
         can :manage, Cart if user.has_role?(:waiter, Cart)
 
