@@ -55,11 +55,17 @@ class FoodsController < ApplicationController
   # DELETE /foods/1
   # DELETE /foods/1.json
   def destroy
-    @food.destroy
+    if @food.destroy
     respond_to do |format|
       format.html { redirect_to foods_url, notice: 'Food was successfully destroyed.' }
       format.json { head :no_content }
     end
+    else
+     respond_to do |format|
+      format.html { redirect_to foods_url, notice: 'Food cannot be destroyed as an order contains it' }
+      format.json { head :no_content }
+    end
+   end
   end
 
   private

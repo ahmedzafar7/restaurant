@@ -8,8 +8,8 @@ class Ability
         can :manage, :all
     else
         #implement waiter authorization to orders
-       # can :read, :all
-     #  can :manage, Order if user.has_role?(:waiter, Order)
+        can :read, Food
+        #  can :manage, Order if user.has_role?(:waiter, Order)
         can :manage, Order, :user_id => user.id
         can :manage, LineItem if user.has_role?(:waiter, LineItem)
         can :manage, Cart if user.has_role?(:waiter, Cart)
