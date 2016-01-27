@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    include CanCan::ControllerAdditions
+   
     rescue_from CanCan::AccessDenied, with: :unauthorized_access
 
 
