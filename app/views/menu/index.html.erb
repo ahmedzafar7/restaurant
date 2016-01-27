@@ -5,19 +5,19 @@
 <h1>Happy Days Restaurant Menu</h1>
 
 <% cache ['menu', Food.order_by_title] do %>
-	
-	<% @foods.each do |food| %>
-		<% cache ['entry', food] do %>
-			<div class="entry">
-				<%= image_tag(food.image_url) %>
-				<h3><%= food.title %></h3>
-				<p><%= sanitize(food.description) %></p>
-				<div class="price_line">
-					<span class="price"><%= number_to_currency(food.price) %></span>
-					<%= button_to 'Add to Order', line_items_path(food_id: food), remote: true %>
-				</div>
-			</div>
-			
-		<% end %>
-	<% end %>
+
+  <% @foods.each do |food| %>
+    <% cache ['entry', food] do %>
+      <div class="entry">
+        <%= image_tag(food.image_url) %>
+        <h3><%= food.title %></h3>
+        <p><%= sanitize(food.description) %></p>
+        <div class="price_line">
+          <span class="price"><%= number_to_currency(food.price) %></span>
+          <%= button_to 'Add to Order', line_items_path(food_id: food), remote: true %>
+        </div>
+      </div>
+
+    <% end %>
+  <% end %>
 <% end %>

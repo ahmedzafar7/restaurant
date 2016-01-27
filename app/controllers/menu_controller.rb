@@ -1,7 +1,7 @@
 class MenuController < ApplicationController
-	load_and_authorize_resource
-	include CurrentCart
-	before_action :set_cart
+  load_and_authorize_resource
+  include CurrentCart
+  before_action :set_cart
 
 	#GET /menu/index
   def index

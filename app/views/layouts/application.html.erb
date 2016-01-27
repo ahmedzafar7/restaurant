@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Happy Days Restaurant</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<!-- taken from http://guides.railsgirls.com/devise/ -->
-<body class='<%= controller.controller_name %>'>
-<p class="navbar-text pull-right">
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-<% end %>
-<!---------------------->
-	<div id="banner">
-		<%= image_tag("logo.png") %>
-		<%= @page_title || "Happy Days Menu" %>
-	</div>
-	<div id="columns">
-		<div id="side">
-		<% if current_user %>
-			<h2>Welcome, <%= current_user.firstname %></h2>
-			<%= raw "<h3>You are signed up as an admin</h3>"  if current_user.has_role?(:admin) %>
-			 <%= raw "<h3>You are signed up as a waiter</h3>" if current_user.has_role?(:waiter) %> 
+  <head>
+    <title>Happy Days Restaurant</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <!-- taken from http://guides.railsgirls.com/devise/ -->
+  <body class='<%= controller.controller_name %>'>
+    <p class="navbar-text pull-right">
+      <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+      <% end %>
+      <!---------------------->
+      <div id="banner">
+        <%= image_tag("logo.png") %>
+        <%= @page_title || "Happy Days Menu" %>
+      </div>
+      <div id="columns">
+        <div id="side">
+          <% if current_user %>
+          <h2>Welcome, <%= current_user.firstname %></h2>
+          <%= raw "<h3>You are signed up as an admin</h3>"  if current_user.has_role?(:admin) %>
+          <%= raw "<h3>You are signed up as a waiter</h3>" if current_user.has_role?(:waiter) %> 
 
-		<% end %>
+          <% end %>
 
-		<% if @cart %>
-			<%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
-				<%= render @cart %>
-			<% end %>
-		<% end %>
-			<ul>
-				<li><a href="http://localhost:3000">Home</a></li>
-				
-			</ul>
-			<% if user_signed_in? %>
-				<ul>
-					<li><%= link_to 'Orders', orders_path %></li>
-					<li><%= link_to 'All Food Items', foods_path %></li>
-					<li><%= link_to 'User Accounts', users_path %></li>
-				</ul>
-				
-			<% end %>
-		</div>
-	</div>
-		<div id="main">
-			<%= yield %>
-		</div>
+          <% if @cart %>
+          <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+          <%= render @cart %>
+          <% end %>
+          <% end %>
+          <ul>
+            <li><a href="http://localhost:3000">Home</a></li>
 
-</body>
+          </ul>
+          <% if user_signed_in? %>
+          <ul>
+            <li><%= link_to 'Orders', orders_path %></li>
+            <li><%= link_to 'All Food Items', foods_path %></li>
+            <li><%= link_to 'User Accounts', users_path %></li>
+         </ul>
+
+         <% end %>
+       </div>
+      </div>
+      <div id="main">
+       <%= yield %>
+      </div>
+
+  </body>
 </html>

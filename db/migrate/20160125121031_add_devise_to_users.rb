@@ -1,4 +1,5 @@
 class AddDeviseToUsers < ActiveRecord::Migration
+
   def self.up
     change_table(:users) do |t|
       ## Database authenticatable
@@ -46,4 +47,5 @@ class AddDeviseToUsers < ActiveRecord::Migration
     # model already existed. Please edit below which fields you would like to remove in this migration.
     raise ActiveRecord::IrreversibleMigration
   end
+  
 end
