@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
  # before_action :authorize_admin
-  before_filter :set_vars
+ 
   protect_from_forgery with: :exception
   before_action :authenticate_user!
 
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   def unauthorized_access
     logger.error "Permission denied for access"
-    redirect_to :root, notice: 'Permission Denied'
+  redirect_to :root, notice: 'Permission Denied'
   end
 
 end
