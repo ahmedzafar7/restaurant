@@ -47,7 +47,7 @@ class CartsController < ApplicationController
     #do I need the following line because I'm using load_and_authorize_resource? not sure yet
     respond_to do |format|
       if @cart.update(cart_params)
-        format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
+        format.html { redirect_to @cart, notice: 'No attributes to update.' }
         format.json { render :show, status: :ok, location: @cart }
       else
         format.html { render :edit }
@@ -77,8 +77,10 @@ class CartsController < ApplicationController
   def cart_params
     #cart table only contains id, created at and updated at, not meant to be edited by admin or user
     #perhaps I should disable edit entirely?
-    params[:cart]
+    params.permit()
   end
+
+ 
 
   def invalid_cart
     logger.error "Attempt to access invalid cart #{params[:id]}"

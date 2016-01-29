@@ -59,12 +59,12 @@ class FoodsController < ApplicationController
   def destroy
     if @food.destroy
     respond_to do |format|
-      format.html { redirect_to foods_url, notice: 'Food was successfully destroyed.' }
+      format.html { redirect_to foods_path, notice: 'Food was successfully destroyed.' }
       format.json { head :no_content }
     end
     else
      respond_to do |format|
-      format.html { redirect_to foods_url, notice: 'Food cannot be destroyed as an order contains it' }
+      format.html { redirect_to foods_path, notice: 'Food cannot be destroyed as an order contains it' }
       format.json { head :no_content }
     end
    end

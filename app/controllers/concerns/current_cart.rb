@@ -4,13 +4,11 @@ module CurrentCart
   private
 
   def set_cart
-    if Cart.exists? session[:cart_id]
-      @cart = Cart.find(session[:cart_id])
-    else
+    @cart = Cart.find_by_id(session[:cart_id])
+    unless @cart
       @cart = Cart.create
       session[:cart_id] = @cart.id
- # rescue ActiveRecord::RecordNotFound   
-    end
+    end       
   end
   
 end

@@ -31,7 +31,7 @@ class LineItemsController < ApplicationController
     @line_item = @cart.add_food(food.id)
 
     respond_to do |format|
-      if @line_item.save
+      if @line_item.persisted?
         format.js
         format.html { redirect_to :root }
         format.json { render :show, status: :created, location: @line_item }
@@ -61,7 +61,7 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item.destroy
     respond_to do |format|
-      format.html { redirect_to line_items_url, notice: 'Line item was successfully destroyed.' }
+      format.html { redirect_to line_items_path, notice: 'Line item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
