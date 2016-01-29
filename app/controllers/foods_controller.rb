@@ -1,6 +1,8 @@
 class FoodsController < ApplicationController
   load_and_authorize_resource
   before_action :set_food, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :invalid_food
+
 
   # GET /foods
   # GET /foods.json
@@ -72,6 +74,11 @@ class FoodsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_food
     @food = Food.find(params[:id])
+  end
+
+  def invalid_food
+    logger.error "Attempt to access invalid food resource #{params[:id]}"
+    redirect_to :root, notice: 'Invalid Food Item'
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

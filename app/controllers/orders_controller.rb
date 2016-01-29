@@ -8,8 +8,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all if current_user.has_role? :admin
-    @orders = current_user.orders if current_user.has_role? :waiter
+   
   end
 
   # GET /orders/1

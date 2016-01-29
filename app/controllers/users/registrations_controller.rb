@@ -1,13 +1,19 @@
 # controllers/users/registrations_controller.rb
 class Users::RegistrationsController < Devise::RegistrationsController
 
-  before_filter :configure_permitted_parameters
+  before_action :configure_permitted_parameters
 
   #POST
   def create
     #byebug #debugging
     super
-  @user.add_role(params[:role_name])
+    if @user.persisted? && Role.exists?(name: params[:role_name])
+       @user.add_role(params[:role_name]) 
+    else
+       @user.destroy
+       redirect_to :root, notice: 'Unknown error occurred, user could not be saved. Please verify that you entered valid details'
+       #a render/redirect error occurred here before, could not emulate it again: ask.
+    end
   end
 
   protected

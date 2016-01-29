@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   :recoverable, :rememberable, :trackable, :validatable
   after_destroy :ensure_one_waiter_remains
   validates :firstname, presence: true
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness:true
   validates :lastname, presence: true
   has_many :orders, dependent: :destroy
 

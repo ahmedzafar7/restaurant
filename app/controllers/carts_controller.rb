@@ -1,13 +1,13 @@
 class CartsController < ApplicationController
   include CurrentCart
   load_and_authorize_resource
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
+ # before_action :set_cart, only: [:show, :update, :destroy] #using load_and_authorize_resource
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts
   # GET /carts.json
   def index
-    @carts = Cart.all
+   # @carts = Cart.all #removed because using load_and_authorize_resource
   end
 
   # GET /carts/1
@@ -17,7 +17,7 @@ class CartsController < ApplicationController
 
   # GET /carts/new
   def new
-    @cart = Cart.new
+    #@cart = Cart.new #@cart is already a new cart instance because load_and-authorize_resource
   end
 
   # GET /carts/1/edit
@@ -27,7 +27,8 @@ class CartsController < ApplicationController
   # POST /carts
   # POST /carts.json
   def create
-    @cart = Cart.new(cart_params)
+    #removed because i'm using load_and_authorize_resource
+    # @cart = Cart.new(cart_params)
 
     respond_to do |format|
       if @cart.save
@@ -43,6 +44,7 @@ class CartsController < ApplicationController
   # PATCH/PUT /carts/1
   # PATCH/PUT /carts/1.json
   def update
+    #do I need the following line because I'm using load_and_authorize_resource? not sure yet
     respond_to do |format|
       if @cart.update(cart_params)
         format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
@@ -67,12 +69,14 @@ class CartsController < ApplicationController
 
   private
   # Use callbacks to share common setup or constraints between actions.
-  def set_cart
-    @cart = Cart.find(params[:id])
-  end
+  #def set_cart
+   # @cart = Cart.find(params[:id])
+  #end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def cart_params
+    #cart table only contains id, created at and updated at, not meant to be edited by admin or user
+    #perhaps I should disable edit entirely?
     params[:cart]
   end
 
