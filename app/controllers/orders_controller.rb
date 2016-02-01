@@ -1,7 +1,5 @@
 class OrdersController < ApplicationController
-  include CurrentCart
   load_and_authorize_resource
-
   before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
@@ -42,10 +40,8 @@ class OrdersController < ApplicationController
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         format.html { redirect_to :root, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -56,10 +52,8 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -70,7 +64,7 @@ class OrdersController < ApplicationController
     @order.destroy
     respond_to do |format|
       format.html { redirect_to orders_path, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
+      
     end
   end
 

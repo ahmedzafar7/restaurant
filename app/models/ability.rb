@@ -14,7 +14,6 @@ class Ability
       can :manage, LineItem 
       cannot :update, LineItem
       can :manage, Cart
-      cannot :udpate, Cart
       cannot :manage, Role
       
 

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-   
-    rescue_from CanCan::AccessDenied, with: :unauthorized_access
+  include CurrentCart
+  rescue_from CanCan::AccessDenied, with: :unauthorized_access
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

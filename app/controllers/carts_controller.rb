@@ -1,33 +1,18 @@
 class CartsController < ApplicationController
   include CurrentCart
+  before_action :set_cart
   load_and_authorize_resource
- # before_action :set_cart, only: [:show, :update, :destroy] #using load_and_authorize_resource
+  # before_action :set_cart, only: [:show, :update, :destroy] #using load_and_authorize_resource
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
-
-  # GET /carts
-  # GET /carts.json
-  def index
-   # @carts = Cart.all #removed because using load_and_authorize_resource
-  end
-
-  # GET /carts/1
-  # GET /carts/1.json
-  def show
-  end
-
-  # GET /carts/new
-  def new
-    #@cart = Cart.new #@cart is already a new cart instance because load_and-authorize_resource
-  end
-
+  
+ 
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
     @cart.destroy if @cart.id == session[:cart_id]
     session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to :root }
-      format.json { head :no_content }
+      format.html { redirect_to :root }      
     end
   end
 
