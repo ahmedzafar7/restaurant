@@ -17,17 +17,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   #PUT
   def update
-    #byebug #debugging
     super
-    if current_user.has_role? :admin && User.with_role(:admin).count > 1
-       @user.remove_role :admin
-       @user.add_role(params[:role_name])
+    if current_user.has_role? :admin and User.with_role(:admin).count > 1
+      @user.add_role(params[:role_name])
+      @user.remove_role :admin
     elsif current_user.has_role? :waiter
-      #redirect_to :root, notice: 'You do not have the authorization to change roles,
-     # any other information given has been updated'
+      flash[:notice] = 'You do not have the authorization to change roles,
+      any other information given has been updated'
       return
     elsif User.with_role(:admin).count <= 1
-      #redirect_to :root, notice: 'Not allowed. There must always be atleast one admin account remaining'
+      flash[:notice] = 'Cannot change role since one admin HAS to remain on system. Other
+      parameteres given have been changed'
       return
     end
   end

@@ -12,7 +12,7 @@ class CartsController < ApplicationController
     @cart.destroy if @cart.id == session[:cart_id]
     session[:cart_id] = nil
     respond_to do |format|
-      format.html { redirect_to :root }      
+      format.html { redirect_to :root }
     end
   end
 

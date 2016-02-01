@@ -32,7 +32,6 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = current_user.orders.build(order_params)
     @order.add_line_items_from_cart(@cart)
 
     respond_to do |format|

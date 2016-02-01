@@ -11,8 +11,7 @@ class Ability
       #implement waiter authorization to orders
       can :read, Food
       can :manage, Order, :user_id => user.id
-      can :manage, LineItem 
-      cannot :update, LineItem
+      can [:read, :create, :destroy], LineItem 
       can :manage, Cart
       cannot :manage, Role
       
