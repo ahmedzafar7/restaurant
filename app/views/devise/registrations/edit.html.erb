@@ -29,10 +29,10 @@
 
   <!-- taken from http://stackoverflow.com/questions/26875902/allow-users-to-select-role-from-registration-form-with-devise-and-rolify but modified-->
 <div class="field">
-  <%= f.label :roles %>
+  <%= f.label :role %>
   <div class="controls">
     <% Role.all.each do |role| %>
-        <%= radio_button_tag "users_roles[role_ids][]", role.id, @user.role_ids.include?(role.id) %>
+        <%= radio_button_tag "role_name", role.name, checked: @user.role_ids.include?(role.id) %>
         <%= role.name %><br />
     <% end %>
   </div>

@@ -10,12 +10,13 @@ class Ability
     elsif user.has_role? :waiter
       #implement waiter authorization to orders
       can :read, Food
-      #  can :manage, Order if user.has_role?(:waiter, Order)
       can :manage, Order, :user_id => user.id
       can :manage, LineItem 
       cannot :update, LineItem
       can :manage, Cart
       cannot :udpate, Cart
+      cannot :manage, Role
+      
 
     end
     # Define abilities for the passed in user here. For example:

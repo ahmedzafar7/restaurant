@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable
-  after_destroy :ensure_one_waiter_remains
+  after_destroy :ensure_one_admin_remains
   validates :firstname, presence: true
   validates :email, presence: true, uniqueness:true
   validates :lastname, presence: true
@@ -12,9 +12,9 @@ class User < ActiveRecord::Base
 
   
   private
-  def ensure_one_waiter_remains
-    if User.count.zero?
-     raise "Cannot delete the only waiter account remaining"
+  def ensure_one_admin_remains
+    if User.with_role(:admin).count.zero?
+     raise "Cannot delete the only admin account remaining"
    end
   end
 

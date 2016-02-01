@@ -1,6 +1,5 @@
 # controllers/users/registrations_controller.rb
 class Users::RegistrationsController < Devise::RegistrationsController
-
   before_action :configure_permitted_parameters
 
   #POST
@@ -16,18 +15,39 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  #PUT
+  def update
+    #byebug #debugging
+    super
+    if current_user.has_role? :admin && User.with_role(:admin).count > 1
+       @user.remove_role :admin
+       @user.add_role(params[:role_name])
+    elsif current_user.has_role? :waiter
+      #redirect_to :root, notice: 'You do not have the authorization to change roles,
+     # any other information given has been updated'
+      return
+    elsif User.with_role(:admin).count <= 1
+      #redirect_to :root, notice: 'Not allowed. There must always be atleast one admin account remaining'
+      return
+    end
+  end
+
   protected
 
   # my custom fields are :name, :heard_how
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
       u.permit(:firstname, :lastname,
-        :email, :password, :password_confirmation)
+        :email, :password, :role_name,:password_confirmation)
     end
     devise_parameter_sanitizer.for(:account_update) do |u|
       u.permit(:firstname, :lastname,
-        :email, :password, :password_confirmation, :current_password)
+        :email, :password, :role_name, :password_confirmation, :current_password)
     end
   end
+
+
+
+  
   
 end

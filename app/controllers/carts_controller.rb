@@ -20,42 +20,6 @@ class CartsController < ApplicationController
     #@cart = Cart.new #@cart is already a new cart instance because load_and-authorize_resource
   end
 
-  # GET /carts/1/edit
-  def edit
-  end
-
-  # POST /carts
-  # POST /carts.json
-  def create
-    #removed because i'm using load_and_authorize_resource
-    # @cart = Cart.new(cart_params)
-
-    respond_to do |format|
-      if @cart.save
-        format.html { redirect_to @cart, notice: 'Cart was successfully created.' }
-        format.json { render :show, status: :created, location: @cart }
-      else
-        format.html { render :new }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /carts/1
-  # PATCH/PUT /carts/1.json
-  def update
-    #do I need the following line because I'm using load_and_authorize_resource? not sure yet
-    respond_to do |format|
-      if @cart.update(cart_params)
-        format.html { redirect_to @cart, notice: 'No attributes to update.' }
-        format.json { render :show, status: :ok, location: @cart }
-      else
-        format.html { render :edit }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
