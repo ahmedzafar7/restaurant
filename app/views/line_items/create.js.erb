@@ -1,3 +1,8 @@
-$('#notice').hide();
-$('#cart').show();
-$('#cart').html("<%= escape_javascript render(@cart) %>");
+function initialize() {
+  $('#notice').hide();
+  $('#cart').show();
+  $('#cart').html("<%= escape_javascript render(@cart) %>");
+}
+
+$(document).ready(initialize);
+$(document).on('page:load', initialize);

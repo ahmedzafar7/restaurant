@@ -10,7 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
        @user.add_role(params[:role_name]) 
     else
        @user.destroy
-       redirect_to :root, notice: 'Unknown error occurred, user could not be saved. Please verify that you entered valid details'
+       flash[:notice]= 'Unknown error occurred, user could not be saved. Please verify that you entered valid details'
        #a render/redirect error occurred here before, could not emulate it again: ask.
     end
   end

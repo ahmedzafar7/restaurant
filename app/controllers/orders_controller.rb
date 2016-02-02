@@ -1,12 +1,11 @@
 class OrdersController < ApplicationController
   load_and_authorize_resource
   before_action :set_cart, only: [:new, :create]
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /orders
   # GET /orders.json
-  def index
-   
+  def index   
   end
 
   # GET /orders/1
@@ -20,8 +19,6 @@ class OrdersController < ApplicationController
       redirect_to :root, notice: "You cannot create an order if there are no items in cart"
       return
     end
-
-
     @order = Order.new
   end
 
@@ -68,10 +65,7 @@ class OrdersController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_order
-    @order = Order.find(params[:id])
-  end
+ 
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def order_params
